@@ -287,6 +287,7 @@ footer a:hover{color:var(--accent)}
     <a class="brand" href="#top"><span class="mono-badge">MA</span>Muhammad Adrees</a>
     <ul>
       <li><a href="#services">Services</a></li>
+      <li><a href="#work">Work</a></li>
       <li><a href="#stack">Skills</a></li>
       <li><a href="#process">Process</a></li>
       <li><a href="#about">About</a></li>
@@ -452,12 +453,13 @@ footer a:hover{color:var(--accent)}
     <div class="sec-head">
       <span class="label">Selected work</span>
       <h2>Recent projects</h2>
+      <p>Live websites and apps I've built for clients on Shopify, WordPress, Next.js and React.</p>
     </div>
     <div class="projects" id="projectList"></div>
   </div>
 </section>
 
-<section id="stack" class="alt">
+<section id="stack">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="label">Skills</span>
@@ -475,7 +477,7 @@ footer a:hover{color:var(--accent)}
   </div>
 </section>
 
-<section id="process">
+<section id="process" class="alt">
   <div class="wrap">
     <div class="sec-head rv">
       <span class="label">How we work together</span>
@@ -491,7 +493,7 @@ footer a:hover{color:var(--accent)}
   </div>
 </section>
 
-<section id="about" class="alt">
+<section id="about">
   <div class="wrap two">
     <div class="rv">
       <div class="sec-head" style="margin-bottom:1.8rem">
@@ -511,9 +513,10 @@ footer a:hover{color:var(--accent)}
         <h2>Hi, I'm Adrees</h2>
       </div>
       <p>I've spent the last 4 years building websites, starting with HTML, CSS and JavaScript and moving into WordPress, Shopify, Webflow and Wix Studio. Today I also build mobile apps with React Native and backend features with PHP and Laravel.</p>
-      <p>I enjoy turning a design into a real, working product that helps a business sell online. I'm based in Hyderabad, Pakistan, and work with clients worldwide through Fiverr.</p>
+      <p>I enjoy turning a design into a real, working product that helps a business sell online. I'm based in Faisalabad, Pakistan, and work with clients worldwide.</p>
       <dl class="meta">
-        <dt>Based in</dt><dd>Hyderabad, Pakistan (PKT, UTC+5)</dd>
+        <dt>Based in</dt><dd>Faisalabad, Pakistan (PKT, UTC+5)</dd>
+        <dt>Current role</dt><dd>Web Developer, Outsource in Pakistan (since 2023)</dd>
         <dt>Languages</dt><dd>English, Urdu, Sindhi, Punjabi</dd>
         <dt>Education</dt><dd>Intermediate, BISE Hyderabad</dd>
         <dt>Also</dt><dd>10 months of MS Office experience</dd>
@@ -548,7 +551,13 @@ footer a:hover{color:var(--accent)}
    Example:
    { title: "Fashion store", type: "Shopify", text: "Custom theme from Figma design.", link: "https://example.com", image: "images/fashion.jpg" }
 */
-const projects = [];
+const projects = [
+  { title: "Glassthetic", type: "Shopify", text: "Online eyewear store with men's, women's and caps collections, best-seller carousels and multi-currency checkout.", link: "https://glassthetic.com/", image: "images/glassthetic.png" },
+  { title: "Annarita Bride", type: "WordPress", text: "Luxury bridal gown website with collection pages, fitting appointments, store locator and trunk show events.", link: "https://annaritabride.com/", image: "images/annaritabride.png" },
+  { title: "Wilson-Boss", type: "WordPress · WooCommerce", text: "Digital marketing company site with consultation booking, digital products, ecom services and online fee payment.", link: "https://wilson-boss.com/", image: "images/wilson-boss.png" },
+  { title: "Van Tech Systems", type: "Next.js", text: "Multi-language company website for an AI and software agency, with services, work showcase and live chat.", link: "https://vantechsystems.tech/", image: "images/vantechsystems.png" },
+  { title: "KT Travel", type: "React", text: "React web app for a wedding and destination travel company, with a custom sign-in experience. Deployed on Vercel.", link: "https://kt-trave-js.vercel.app/", image: "images/kt-travel.png" }
+];
 
 (function () {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -564,7 +573,7 @@ const projects = [];
       a.href = p.link || "#";
       a.target = "_blank";
       a.rel = "noopener";
-      a.innerHTML = (p.image ? '<img alt="">' : "") + '<div><span class="label"></span><h3></h3><p></p></div>';
+      a.innerHTML = (p.image ? '<img alt="" loading="lazy">' : "") + '<div><span class="label"></span><h3></h3><p></p></div>';
       if (p.image) a.querySelector("img").src = p.image;
       a.querySelector(".label").textContent = p.type || "";
       a.querySelector("h3").textContent = p.title;
