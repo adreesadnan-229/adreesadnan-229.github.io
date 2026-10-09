@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Muhammad Adrees Portfolio</title>
+<meta name="description" content="Muhammad Adrees, Shopify, WordPress and React Native developer from Hyderabad, Pakistan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: split hero (rotating pitch left, live store-in-a-browser with a typing code editor right), tech marquee, ruled service index, grouped stack, numbered delivery process, Fiverr call-to-action */
+:root{
+  --bg:#f2f5f1;
+  --surface:#ffffff;
+  --ink:#0f1f19;
+  --muted:#4f625a;
+  --line:#d4ddd7;
+  --accent:#0d7a55;
+  --accent-ink:#ffffff;
+  --accent-soft:#dcefe5;
+  --warm:#d98b1c;
+  --code-bg:#0f1f19;
+  --code-fg:#d6e8de;
+  --code-key:#7fd6ad;
+  --code-str:#f2b860;
+  --code-tag:#8cc2ff;
+  --shadow:0 24px 50px -26px rgba(15,31,25,.4);
+  --display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body:"Instrument Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"JetBrains Mono", Consolas, "Courier New", monospace;
+  --ease:cubic-bezier(.2,.8,.2,1);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1411; --surface:#121f1a; --ink:#e7f0eb; --muted:#9db1a7; --line:#22352c;
+    --accent:#3cc48d; --accent-ink:#06130e; --accent-soft:#153327; --warm:#f0a945;
+    --code-bg:#07100c; --code-fg:#cfe3d8; --code-key:#6fdcaa; --code-str:#f5c26e; --code-tag:#8cc2ff;
+    --shadow:0 24px 50px -26px rgba(0,0,0,.8); color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1411; --surface:#121f1a; --ink:#e7f0eb; --muted:#9db1a7; --line:#22352c;
+  --accent:#3cc48d; --accent-ink:#06130e; --accent-soft:#153327; --warm:#f0a945;
+  --code-bg:#07100c; --code-fg:#cfe3d8; --code-key:#6fdcaa; --code-str:#f5c26e; --code-tag:#8cc2ff;
+  --shadow:0 24px 50px -26px rgba(0,0,0,.8); color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:72rem;margin:0 auto;padding-inline:clamp(1rem,4vw,2.5rem)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--warm);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);line-height:1.06;text-wrap:balance;margin:0}
+p{margin:0}
+.label{font:500 .75rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:.6rem}
+.label::before{content:"";width:1.4rem;height:1.5px;background:currentColor}
+
+/* scroll progress */
+.progress{position:fixed;top:0;left:0;right:0;height:3px;background:var(--accent);transform-origin:0 50%;transform:scaleX(0);z-index:20}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s}
+.nav.scrolled{border-color:var(--line);box-shadow:0 8px 24px -20px rgba(0,0,0,.5)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-block:.85rem}
+.brand{font:800 1.15rem/1 var(--display);text-decoration:none;display:flex;align-items:center;gap:.6rem;letter-spacing:-.01em}
+.mono-badge{width:2rem;height:2rem;border-radius:9px;background:var(--ink);color:var(--bg);display:grid;place-items:center;font:700 .8rem/1 var(--mono)}
+.nav ul{display:flex;gap:1.6rem;list-style:none;margin:0;padding:0;font-size:.95rem;color:var(--muted)}
+.nav ul a{text-decoration:none;position:relative;padding-block:.3rem}
+.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+.nav ul a:hover{color:var(--ink)}
+.nav ul a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-right{display:flex;align-items:center;gap:.6rem}
+.theme-btn{width:2.4rem;height:2.4rem;border-radius:50%;border:1px solid var(--line);background:var(--surface);color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:transform .4s var(--ease)}
+.theme-btn:hover{transform:rotate(25deg)}
+.theme-btn svg{width:1.05rem;height:1.05rem}
+@media (max-width:760px){.nav ul{display:none}}
+
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:.55rem;font:600 .98rem/1 var(--body);padding:.95rem 1.35rem;border-radius:999px;text-decoration:none;border:1.5px solid var(--ink);transition:transform .25s var(--ease),box-shadow .25s var(--ease);isolation:isolate}
+.btn svg{transition:transform .3s var(--ease)}
+.btn:hover{transform:translateY(-2px)}
+.btn:hover svg{transform:translateX(4px)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);box-shadow:0 10px 24px -12px var(--accent)}
+.btn-primary::before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%);z-index:-1}
+.btn-primary:hover::before{transform:translateX(120%);transition:transform .8s var(--ease)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--bg)}
+.btn-sm{padding:.65rem 1.05rem;font-size:.9rem}
+
+/* hero */
+.hero{position:relative;padding-block:clamp(3rem,7vw,5.5rem) clamp(3rem,6vw,4.5rem);--mx:70%;--my:30%}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(var(--line) 1.2px,transparent 1.2px);background-size:22px 22px;-webkit-mask-image:radial-gradient(ellipse 70% 80% at 60% 40%,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse 70% 80% at 60% 40%,#000 30%,transparent 75%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(circle 28rem at var(--mx) var(--my),color-mix(in srgb,var(--accent) 16%,transparent),transparent 70%);transition:background .2s}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:center}
+.hero-grid>*{min-width:0}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
+.status{display:inline-flex;align-items:center;gap:.55rem;font:500 .8rem/1 var(--mono);color:var(--muted);border:1px solid var(--line);background:var(--surface);padding:.55rem .85rem;border-radius:999px}
+.status b{position:relative;width:.5rem;height:.5rem;border-radius:50%;background:var(--accent)}
+.status b::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--accent);animation:ping 1.8s var(--ease) infinite}
+@keyframes ping{to{transform:scale(3);opacity:0}}
+.hero h1{font-size:clamp(2.6rem,6.2vw,4.5rem);font-weight:800;letter-spacing:-.035em;margin-top:1.4rem}
+.rot{display:inline-block;position:relative;color:var(--accent);white-space:nowrap}
+.rot span{display:inline-block}
+.rot span.out{animation:rotOut .35s var(--ease) forwards}
+.rot span.in{animation:rotIn .5s var(--ease)}
+@keyframes rotOut{to{transform:translateY(-40%);opacity:0;filter:blur(4px)}}
+@keyframes rotIn{from{transform:translateY(45%);opacity:0;filter:blur(4px)}}
+.rot::after{content:"";position:absolute;left:0;right:0;bottom:.02em;height:.12em;background:var(--warm);border-radius:2px;opacity:.85;transform-origin:left;animation:underline 2.6s var(--ease) infinite}
+@keyframes underline{0%{transform:scaleX(0)}25%,80%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+.hero .lede{font-size:clamp(1.05rem,1.6vw,1.2rem);color:var(--muted);max-width:34rem;margin-top:1.3rem}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+.facts{display:flex;flex-wrap:wrap;gap:2.4rem;margin-top:2.6rem;padding-top:1.6rem;border-top:1px solid var(--line)}
+.facts div{display:grid;gap:.3rem}
+.facts strong{font:800 2.2rem/1 var(--display);font-variant-numeric:tabular-nums}
+.facts strong i{font-style:normal;color:var(--accent)}
+.facts span{font-size:.88rem;color:var(--muted)}
+
+/* entrance sequence on load */
+.load>*{animation:up .9s var(--ease) both}
+.load>*:nth-child(2){animation-delay:.08s}
+.load>*:nth-child(3){animation-delay:.16s}
+.load>*:nth-child(4){animation-delay:.24s}
+.load>*:nth-child(5){animation-delay:.32s}
+@keyframes up{from{opacity:0;transform:translateY(26px)}}
+.mock{animation:mockIn 1.1s .2s var(--ease) both}
+@keyframes mockIn{from{opacity:0;transform:perspective(1200px) rotateY(-14deg) rotateX(6deg) translateY(30px)}}
+
+/* browser mock */
+.mock{position:relative;padding-bottom:4.5rem;perspective:1200px}
+.tilt{transition:transform .5s var(--ease);transform-style:preserve-3d}
+.browser{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+.bar{display:flex;align-items:center;gap:.45rem;padding:.7rem .9rem;border-bottom:1px solid var(--line)}
+.bar i{width:.62rem;height:.62rem;border-radius:50%;background:#ef6b5b}
+.bar i:nth-child(2){background:#f2bd42}.bar i:nth-child(3){background:#4cc463}
+.url{flex:1;min-width:0;margin-left:.5rem;font:400 .74rem/1 var(--mono);color:var(--muted);background:var(--bg);border-radius:6px;padding:.45rem .65rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.store{padding:1.1rem}
+.store-top{display:flex;justify-content:space-between;align-items:center;font:800 .95rem/1 var(--display);letter-spacing:.04em}
+.cart{display:inline-flex;align-items:center;gap:.35rem;font:500 .72rem/1 var(--mono);color:var(--muted)}
+.cart b{min-width:1.2rem;height:1.2rem;border-radius:999px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:.65rem}
+.cart b.bump{animation:bump .5s var(--ease)}
+@keyframes bump{40%{transform:scale(1.5)}}
+.banner{position:relative;overflow:hidden;margin-top:.9rem;border-radius:10px;background:var(--accent);color:var(--accent-ink);padding:1.1rem 1.2rem;display:grid;gap:.35rem}
+.banner::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.22) 50%,transparent 65%);animation:sheen 4.5s ease-in-out infinite}
+@keyframes sheen{0%,55%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.banner b{font:800 1.25rem/1.1 var(--display)}
+.banner small{opacity:.85;font:500 .68rem/1 var(--mono);letter-spacing:.1em}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.8rem}
+.product{display:grid;gap:.35rem}
+.product div{aspect-ratio:1;border-radius:8px;background:var(--accent-soft);transition:transform .4s var(--ease)}
+.product:nth-child(2) div{background:color-mix(in srgb,var(--warm) 28%,var(--surface))}
+.product:nth-child(3) div{background:color-mix(in srgb,var(--code-tag) 25%,var(--surface))}
+.product.pick div{transform:translateY(-4px);box-shadow:0 0 0 2px var(--accent)}
+.product span{font:500 .68rem/1 var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.toast{position:absolute;top:3.4rem;right:.8rem;display:flex;align-items:center;gap:.55rem;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.55rem .75rem;box-shadow:var(--shadow);font-size:.75rem;opacity:0;transform:translateY(-10px) scale(.96);transition:opacity .4s var(--ease),transform .4s var(--ease);pointer-events:none}
+.toast.show{opacity:1;transform:none}
+.toast .dot{width:1.6rem;height:1.6rem;border-radius:7px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.toast .dot svg{width:.9rem;height:.9rem}
+.toast b{display:block;font-weight:600;font-size:.78rem}
+.toast span{color:var(--muted);font:400 .68rem/1.3 var(--mono)}
+
+.editor{position:absolute;left:-1.4rem;bottom:0;width:min(21.5rem,88%);background:var(--code-bg);color:var(--code-fg);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;animation:float 6s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-8px)}}
+.editor-bar{display:flex;align-items:center;gap:.5rem;padding:.55rem .8rem;border-bottom:1px solid rgba(255,255,255,.08);font:400 .7rem/1 var(--mono);color:color-mix(in srgb,var(--code-fg) 70%,transparent)}
+.editor-bar svg{width:.8rem;height:.8rem;color:var(--code-key)}
+.editor pre{margin:0;padding:.85rem 1rem;height:9.6rem;font:400 .74rem/1.65 var(--mono);overflow:hidden;white-space:pre}
+.k{color:var(--code-key)} .s{color:var(--code-str)} .t{color:var(--code-tag)} .c{opacity:.5}
+.caret{display:inline-block;width:.5em;height:1.1em;vertical-align:-.2em;background:var(--code-key);animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.chip{position:absolute;right:-.6rem;bottom:2.6rem;display:flex;align-items:center;gap:.45rem;background:var(--ink);color:var(--bg);font:500 .72rem/1 var(--mono);padding:.55rem .8rem;border-radius:999px;box-shadow:var(--shadow);animation:float 5s 1s ease-in-out infinite}
+.chip svg{width:.85rem;height:.85rem}
+@media (max-width:900px){.editor{left:0}.chip{right:0}}
+
+/* marquee */
+.marquee{border-block:1px solid var(--line);background:var(--surface);overflow:hidden;padding-block:1.1rem;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.track{display:flex;width:max-content;animation:scroll 38s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.track span{display:inline-flex;align-items:center;gap:2.2rem;padding-right:2.2rem;font:700 clamp(1.1rem,2.2vw,1.5rem)/1 var(--display);white-space:nowrap;color:var(--muted)}
+.track span::after{content:"";width:.45rem;height:.45rem;background:var(--accent);transform:rotate(45deg)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* sections */
+section{padding-block:clamp(3.5rem,7vw,5.5rem)}
+.sec-head{display:grid;gap:.9rem;max-width:40rem;margin-bottom:2.6rem}
+.sec-head h2{font-size:clamp(2rem,4.2vw,2.9rem);font-weight:700;letter-spacing:-.025em}
+.sec-head p{color:var(--muted)}
+.alt{background:var(--surface);border-block:1px solid var(--line)}
+
+/* scroll reveal: content stays visible; below-the-fold items get a short lift as they arrive */
+.rv{transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:calc(var(--i,0) * 70ms)}
+.rv.pending{opacity:.15;transform:translateY(28px)}
+
+/* services index */
+.services{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line)}
+@media (max-width:760px){.services{grid-template-columns:1fr}}
+.service{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:.4rem 1.1rem;padding:1.7rem 1.3rem;border-bottom:1px solid var(--line);isolation:isolate}
+.service>*{min-width:0}
+.service::before{content:"";position:absolute;inset:0;background:var(--accent-soft);z-index:-1;transform:scaleY(0);transform-origin:bottom;transition:transform .45s var(--ease)}
+.service:hover::before{transform:scaleY(1)}
+.services .service:nth-child(odd){border-right:1px solid var(--line)}
+@media (max-width:760px){.services .service:nth-child(odd){border-right:0}.service{padding-inline:.4rem}}
+.ico{grid-row:span 2;width:2.7rem;height:2.7rem;border-radius:11px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;transition:transform .45s var(--ease),background .3s,color .3s}
+.service:hover .ico{transform:rotate(-8deg) scale(1.08);background:var(--accent);color:var(--accent-ink)}
+.ico svg{width:1.3rem;height:1.3rem}
+.service h3{font-size:1.25rem;font-weight:700}
+.service p{grid-column:2;color:var(--muted);font-size:.98rem}
+.service .arrow{grid-column:3;grid-row:1;width:1.2rem;height:1.2rem;color:var(--accent);opacity:0;transform:translate(-6px,6px);transition:.35s var(--ease)}
+.service:hover .arrow{opacity:1;transform:none}
+.service .tags{grid-column:2;display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.5rem}
+.tag{font:500 .72rem/1 var(--mono);padding:.4rem .6rem;border-radius:6px;border:1px solid var(--line);color:var(--muted);background:var(--surface)}
+
+/* stack */
+.stack{display:grid;grid-template-columns:repeat(3,1fr);gap:2.2rem 2.5rem}
+@media (max-width:860px){.stack{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.stack{grid-template-columns:1fr}}
+.stack h3{position:relative;font:500 .78rem/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-bottom:.8rem;margin-bottom:.9rem;border-bottom:1px solid var(--line)}
+.stack h3::after{content:"";position:absolute;left:0;bottom:-1px;width:100%;height:2px;background:var(--ink);transform-origin:left;transition:transform 1s .2s var(--ease)}
+.stack .pending h3::after{transform:scaleX(0)}
+.stack ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.stack li{font-weight:600;font-size:.95rem;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:.42rem .9rem;transition:transform .25s var(--ease),border-color .25s,color .25s}
+.stack li:hover{transform:translateY(-3px);border-color:var(--accent);color:var(--accent)}
+
+/* process */
+.process{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:1.4rem;counter-reset:step}
+@media (max-width:960px){.process{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.process{grid-template-columns:1fr}}
+.process li{position:relative;counter-increment:step;display:grid;align-content:start;gap:.55rem;padding-top:1.3rem}
+.process li::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--line)}
+.process li i{position:absolute;top:0;left:0;right:0;height:3px;background:var(--accent);transform-origin:left;transition:transform .9s var(--ease);transition-delay:calc(var(--i,0) * 150ms + .1s);z-index:1}
+.process li.pending i{transform:scaleX(0)}
+.process li::before{content:"Step 0" counter(step);font:500 .75rem/1 var(--mono);color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+.process h3{font-size:1.15rem;font-weight:700}
+.process p{color:var(--muted);font-size:.95rem}
+
+/* why + about */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem)}
+.two>*{min-width:0}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.checks{list-style:none;margin:0;padding:0;display:grid;gap:1.15rem}
+.checks li{display:grid;grid-template-columns:1.9rem 1fr;gap:.85rem}
+.checks .tick{width:1.9rem;height:1.9rem;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.checks svg{width:1rem;height:1rem}
+.checks b{display:block;font-weight:600}
+.checks span{color:var(--muted);font-size:.95rem}
+.about p+p{margin-top:1rem}
+.about p{color:var(--muted)}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:.7rem 1.4rem;margin:1.8rem 0 0;padding-top:1.4rem;border-top:1px solid var(--line);font-size:.95rem}
+.meta dt{font:500 .75rem/1.9 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.meta dd{margin:0;font-weight:500}
+
+/* projects (shown once projects are added) */
+.projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(17rem,1fr));gap:1.4rem}
+.project{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;display:grid;transition:transform .35s var(--ease),box-shadow .35s}
+.project:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.project img{aspect-ratio:16/10;object-fit:cover;width:100%;background:var(--accent-soft)}
+.project div{padding:1.1rem;display:grid;gap:.4rem}
+.project h3{font-size:1.15rem}
+.project p{color:var(--muted);font-size:.93rem}
+
+/* cta */
+.cta{position:relative;overflow:hidden;background:var(--code-bg);color:var(--code-fg);border-radius:22px;padding:clamp(2rem,5vw,3.6rem);display:grid;grid-template-columns:1.4fr auto;gap:2rem;align-items:center;isolation:isolate}
+.cta::before{content:"";position:absolute;width:26rem;height:26rem;right:-8rem;top:-10rem;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--code-key) 35%,transparent),transparent 65%);z-index:-1;animation:drift 9s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(-6rem,6rem)}}
+.cta>*{min-width:0}
+@media (max-width:760px){.cta{grid-template-columns:1fr}}
+.cta h2{font-size:clamp(1.9rem,4vw,2.8rem);color:#f3faf6;margin-top:.9rem}
+.cta .label{color:var(--code-key)}
+.cta p{margin-top:.9rem;opacity:.8;max-width:34rem}
+.cta .btn-primary{background:var(--code-key);border-color:var(--code-key);color:#06130e;font-size:1.05rem;padding:1.1rem 1.6rem}
+footer{padding-block:2.2rem 2.8rem;color:var(--muted);font-size:.88rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+footer a{text-decoration:none}
+footer a:hover{color:var(--accent)}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv.pending{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<nav class="nav" id="nav" aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="mono-badge">MA</span>Muhammad Adrees</a>
+    <ul>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#stack">Skills</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch light or dark theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a class="btn btn-primary btn-sm" href="https://www.fiverr.com/adreesadnan229" target="_blank" rel="noopener">Hire me</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="load">
+      <span class="status"><b aria-hidden="true"></b>Available for new projects</span>
+      <h1>I build <span class="rot" id="rot"><span>Shopify stores</span></span><br>that sell.</h1>
+      <p class="lede">I'm Muhammad Adrees, a web developer with 4 years of experience. I build Shopify stores, WordPress and WooCommerce websites, Webflow and Wix Studio sites, and React Native mobile apps. Every build is responsive, fast and easy for you to manage.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="https://www.fiverr.com/adreesadnan229" target="_blank" rel="noopener">Hire me on Fiverr
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-ghost" href="#services">View services</a>
+      </div>
+      <div class="facts">
+        <div><strong><span data-count="4">4</span><i>+</i></strong><span>years in web development</span></div>
+        <div><strong><span data-count="15">15</span></strong><span>platforms and tools</span></div>
+        <div><strong><span data-count="4">4</span></strong><span>languages spoken</span></div>
+      </div>
+    </div>
+
+    <div class="mock" aria-hidden="true">
+      <div class="tilt" id="tilt">
+        <div class="browser">
+          <div class="bar"><i></i><i></i><i></i><span class="url">your-store.myshopify.com</span></div>
+          <div class="store">
+            <div class="store-top">YOUR BRAND <span class="cart">Cart <b id="cartCount">2</b></span></div>
+            <div class="banner"><small>NEW COLLECTION</small><b>Designed in Figma.<br>Built for conversion.</b></div>
+            <div class="products" id="products">
+              <div class="product"><div></div><span>Rs 2,499</span></div>
+              <div class="product"><div></div><span>Rs 3,150</span></div>
+              <div class="product"><div></div><span>Rs 1,899</span></div>
+            </div>
+          </div>
+          <div class="toast" id="toast">
+            <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <div><b>New order received</b><span id="toastText">Rs 2,499 · just now</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="editor">
+        <div class="editor-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg><span id="fileName">product-grid.liquid</span></div>
+        <pre id="code"><span class="c">{%- comment -%} product grid {%- endcomment -%}</span>
+<span class="k">{% for</span> product <span class="k">in</span> collection.products <span class="k">%}</span>
+  <span class="k">{%</span> render <span class="s">'product-card'</span>,
+     product: product <span class="k">%}</span>
+<span class="k">{% endfor %}</span></pre>
+      </div>
+      <div class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg>Mobile responsive</div>
+    </div>
+  </div>
+</header>
+
+<template data-file="product-grid.liquid"><span class="c">{%- comment -%} product grid {%- endcomment -%}</span>
+<span class="k">{% for</span> product <span class="k">in</span> collection.products <span class="k">%}</span>
+  <span class="k">{%</span> render <span class="s">'product-card'</span>,
+     product: product <span class="k">%}</span>
+<span class="k">{% endfor %}</span></template>
+<template data-file="App.jsx"><span class="k">export default function</span> App() {
+  <span class="k">return</span> (
+    <span class="t">&lt;SafeAreaView</span> style={styles.screen}<span class="t">&gt;</span>
+      <span class="t">&lt;Text&gt;</span>Welcome to your app<span class="t">&lt;/Text&gt;</span>
+    <span class="t">&lt;/SafeAreaView&gt;</span>
+  );
+}</template>
+<template data-file="routes/web.php"><span class="c">// Orders page for logged-in users</span>
+<span class="t">Route</span>::get(<span class="s">'/orders'</span>, [
+    <span class="t">OrderController</span>::<span class="k">class</span>, <span class="s">'index'</span>
+])-&gt;middleware(<span class="s">'auth'</span>);</template>
+<template data-file="style.css"><span class="t">.hero</span> {
+  <span class="k">display</span>: grid;
+  <span class="k">grid-template-columns</span>: <span class="s">1fr 1fr</span>;
+  <span class="k">gap</span>: <span class="s">2rem</span>;
+}</template>
+
+<div class="marquee" aria-label="Platforms I work with">
+  <div class="track">
+    <span>Shopify</span><span>WordPress</span><span>WooCommerce</span><span>Elementor</span><span>Divi</span><span>Webflow</span><span>Wix Studio</span><span>React Native</span><span>Laravel</span><span>PHP</span><span>JavaScript</span><span>Bootstrap</span><span>Figma</span>
+    <span aria-hidden="true">Shopify</span><span aria-hidden="true">WordPress</span><span aria-hidden="true">WooCommerce</span><span aria-hidden="true">Elementor</span><span aria-hidden="true">Divi</span><span aria-hidden="true">Webflow</span><span aria-hidden="true">Wix Studio</span><span aria-hidden="true">React Native</span><span aria-hidden="true">Laravel</span><span aria-hidden="true">PHP</span><span aria-hidden="true">JavaScript</span><span aria-hidden="true">Bootstrap</span><span aria-hidden="true">Figma</span>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="label">Services</span>
+      <h2>What I can build for you</h2>
+      <p>From a single landing page to a complete online store, I take your idea from design to a live website.</p>
+    </div>
+    <div class="services">
+      <article class="service rv" style="--i:0">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></span>
+        <h3>Shopify store development</h3>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        <p>Store setup, theme customization, product and collection pages, apps and payment settings.</p>
+        <div class="tags"><span class="tag">Shopify</span><span class="tag">Liquid</span><span class="tag">Theme edits</span></div>
+      </article>
+      <article class="service rv" style="--i:1">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/><circle cx="11" cy="11" r="2"/></svg></span>
+        <h3>Figma to Shopify code</h3>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        <p>I turn your Figma design into a working Shopify theme that matches the design on desktop and mobile.</p>
+        <div class="tags"><span class="tag">Figma</span><span class="tag">Pixel-perfect</span><span class="tag">Responsive</span></div>
+      </article>
+      <article class="service rv" style="--i:0">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></span>
+        <h3>WordPress websites</h3>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        <p>Business, portfolio and blog websites built with Elementor or Divi, which you can edit yourself afterwards.</p>
+        <div class="tags"><span class="tag">WordPress</span><span class="tag">Elementor</span><span class="tag">Divi</span></div>
+      </article>
+      <article class="service rv" style="--i:1">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg></span>
+        <h3>WooCommerce stores</h3>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        <p>Online shops on WordPress with products, cart, checkout, shipping and payment setup.</p>
+        <div class="tags"><span class="tag">WooCommerce</span><span class="tag">Payments</span><span class="tag">Shipping</span></div>
+      </article>
+      <article class="service rv" style="--i:0">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></span>
+        <h3>Webflow and Wix Studio sites</h3>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        <p>Modern, animated websites on no-code platforms, ready to launch and easy to update.</p>
+        <div class="tags"><span class="tag">Webflow</span><span class="tag">Wix Studio</span></div>
+      </article>
+      <article class="service rv" style="--i:1">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></span>
+        <h3>React Native mobile apps</h3>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        <p>Cross-platform Android and iOS apps built with React Native CLI from one codebase.</p>
+        <div class="tags"><span class="tag">React Native</span><span class="tag">CLI</span><span class="tag">Android / iOS</span></div>
+      </article>
+      <article class="service rv" style="--i:0">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span>
+        <h3>Frontend development</h3>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        <p>Landing pages and websites coded by hand in clean HTML, CSS, JavaScript and Bootstrap.</p>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span><span class="tag">Bootstrap</span></div>
+      </article>
+      <article class="service rv" style="--i:1">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.7-4 3-9 3s-9-1.3-9-3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/></svg></span>
+        <h3>PHP and Laravel</h3>
+        <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        <p>Custom features, forms and backend work in PHP and Laravel, built faster with AI-assisted coding.</p>
+        <div class="tags"><span class="tag">PHP</span><span class="tag">Laravel</span><span class="tag">AI-assisted</span></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="alt" hidden>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="label">Selected work</span>
+      <h2>Recent projects</h2>
+    </div>
+    <div class="projects" id="projectList"></div>
+  </div>
+</section>
+
+<section id="stack" class="alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="label">Skills</span>
+      <h2>Tools I work with</h2>
+      <p>I pick the platform that fits your budget and goals, so you don't pay for more than you need.</p>
+    </div>
+    <div class="stack">
+      <div class="rv" style="--i:0"><h3>E-commerce</h3><ul><li>Shopify</li><li>WooCommerce</li><li>Figma to Shopify</li></ul></div>
+      <div class="rv" style="--i:1"><h3>CMS and builders</h3><ul><li>WordPress</li><li>Elementor</li><li>Divi</li><li>Webflow</li><li>Wix Studio</li></ul></div>
+      <div class="rv" style="--i:2"><h3>Frontend</h3><ul><li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>Bootstrap</li></ul></div>
+      <div class="rv" style="--i:0"><h3>Mobile</h3><ul><li>React Native</li><li>React Native CLI</li></ul></div>
+      <div class="rv" style="--i:1"><h3>Backend</h3><ul><li>PHP</li><li>Laravel</li><li>AI-assisted coding</li></ul></div>
+      <div class="rv" style="--i:2"><h3>Office and design</h3><ul><li>Figma</li><li>MS Office</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="label">How we work together</span>
+      <h2>A clear process from first message to launch</h2>
+    </div>
+    <ol class="process">
+      <li class="rv" style="--i:0"><i></i><h3>Discuss</h3><p>Message me on Fiverr with your idea. I ask the right questions and confirm scope, price and deadline.</p></li>
+      <li class="rv" style="--i:1"><i></i><h3>Plan</h3><p>I share the page structure or design direction and get your approval before building.</p></li>
+      <li class="rv" style="--i:2"><i></i><h3>Build</h3><p>I develop your site or app and send progress updates so you always know where it stands.</p></li>
+      <li class="rv" style="--i:3"><i></i><h3>Test</h3><p>I check every page on desktop, tablet and mobile and fix issues before delivery.</p></li>
+      <li class="rv" style="--i:4"><i></i><h3>Deliver</h3><p>You get the finished work, revisions as per your package, and guidance on managing it.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section id="about" class="alt">
+  <div class="wrap two">
+    <div class="rv">
+      <div class="sec-head" style="margin-bottom:1.8rem">
+        <span class="label">Why work with me</span>
+        <h2>What you can expect</h2>
+      </div>
+      <ul class="checks">
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Mobile-first, responsive builds</b><span>Your site looks right on every screen size.</span></div></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Clear communication</b><span>Fluent in English and Urdu, with regular updates throughout the project.</span></div></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Wide platform range</b><span>Shopify, WordPress, Webflow, Wix Studio or custom code, whichever fits your project.</span></div></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><div><b>Easy to manage</b><span>I build so you can update text, images and products yourself.</span></div></li>
+      </ul>
+    </div>
+    <div class="about rv" style="--i:1">
+      <div class="sec-head" style="margin-bottom:1.8rem">
+        <span class="label">About me</span>
+        <h2>Hi, I'm Adrees</h2>
+      </div>
+      <p>I've spent the last 4 years building websites, starting with HTML, CSS and JavaScript and moving into WordPress, Shopify, Webflow and Wix Studio. Today I also build mobile apps with React Native and backend features with PHP and Laravel.</p>
+      <p>I enjoy turning a design into a real, working product that helps a business sell online. I'm based in Hyderabad, Pakistan, and work with clients worldwide through Fiverr.</p>
+      <dl class="meta">
+        <dt>Based in</dt><dd>Hyderabad, Pakistan (PKT, UTC+5)</dd>
+        <dt>Languages</dt><dd>English, Urdu, Sindhi, Punjabi</dd>
+        <dt>Education</dt><dd>Intermediate, BISE Hyderabad</dd>
+        <dt>Also</dt><dd>10 months of MS Office experience</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="cta rv">
+      <div>
+        <span class="label">Let's start</span>
+        <h2>Have a website or store in mind?</h2>
+        <p>Send me a message on Fiverr with your requirements, and I'll reply with a plan and a quote.</p>
+      </div>
+      <a class="btn btn-primary" href="https://www.fiverr.com/adreesadnan229" target="_blank" rel="noopener">Message me on Fiverr
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Muhammad Adrees · Web &amp; Shopify Developer</span>
+    <a href="https://www.fiverr.com/adreesadnan229" target="_blank" rel="noopener">fiverr.com/adreesadnan229</a>
+  </div>
+</footer>
+
+<script>
+/* Add your real projects here. The "Recent projects" section appears automatically once this list has items.
+   Example:
+   { title: "Fashion store", type: "Shopify", text: "Custom theme from Figma design.", link: "https://example.com", image: "images/fashion.jpg" }
+*/
+const projects = [];
+
+(function () {
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const root = document.documentElement;
+
+  /* projects */
+  if (projects.length) {
+    const list = document.getElementById("projectList");
+    projects.forEach(p => {
+      const a = document.createElement("a");
+      a.className = "project";
+      a.href = p.link || "#";
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.innerHTML = (p.image ? '<img alt="">' : "") + '<div><span class="label"></span><h3></h3><p></p></div>';
+      if (p.image) a.querySelector("img").src = p.image;
+      a.querySelector(".label").textContent = p.type || "";
+      a.querySelector("h3").textContent = p.title;
+      a.querySelector("p").textContent = p.text || "";
+      list.appendChild(a);
+    });
+    document.getElementById("work").hidden = false;
+  }
+
+  /* theme toggle */
+  const themeBtn = document.getElementById("themeBtn");
+  try { const saved = localStorage.getItem("ma-theme"); if (saved) root.dataset.theme = saved; } catch (e) {}
+  themeBtn.addEventListener("click", () => {
+    const current = root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const next = current === "dark" ? "light" : "dark";
+    root.dataset.theme = next;
+    try { localStorage.setItem("ma-theme", next); } catch (e) {}
+  });
+
+  /* scroll progress + nav shadow */
+  const bar = document.getElementById("progress");
+  const nav = document.getElementById("nav");
+  const onScroll = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = "scaleX(" + (max > 0 ? scrollY / max : 0) + ")";
+    nav.classList.toggle("scrolled", scrollY > 8);
+  };
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  if (reduce) return;
+
+  /* scroll reveal (only for items that start below the fold) */
+  const items = [...document.querySelectorAll(".rv")];
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.remove("pending"); io.unobserve(en.target); } });
+    }, { rootMargin: "0px 0px -8% 0px" });
+    items.forEach(el => {
+      if (el.getBoundingClientRect().top > innerHeight) { el.classList.add("pending"); io.observe(el); }
+    });
+  }
+
+  /* count-up numbers */
+  document.querySelectorAll("[data-count]").forEach(el => {
+    const end = +el.dataset.count, t0 = performance.now(), dur = 1400;
+    const step = now => {
+      const p = Math.min(1, (now - t0) / dur);
+      el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+
+  /* rotating headline word */
+  const rot = document.getElementById("rot");
+  const words = ["Shopify stores", "WordPress sites", "mobile apps", "web stores", "landing pages"];
+  let wi = 0;
+  setInterval(() => {
+    const old = rot.firstElementChild;
+    old.classList.add("out");
+    setTimeout(() => {
+      wi = (wi + 1) % words.length;
+      const s = document.createElement("span");
+      s.textContent = words[wi];
+      s.className = "in";
+      rot.replaceChildren(s);
+    }, 340);
+  }, 2600);
+
+  /* hero spotlight + 3D tilt follow the pointer */
+  const hero = document.querySelector(".hero");
+  const tilt = document.getElementById("tilt");
+  hero.addEventListener("pointermove", e => {
+    const r = hero.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+    hero.style.setProperty("--mx", x * 100 + "%");
+    hero.style.setProperty("--my", y * 100 + "%");
+    tilt.style.transform = "rotateY(" + ((x - .5) * 10) + "deg) rotateX(" + ((.5 - y) * 8) + "deg)";
+  });
+  hero.addEventListener("pointerleave", () => { tilt.style.transform = ""; });
+
+  /* live store: product gets picked, cart bumps, order toast appears */
+  const prods = [...document.querySelectorAll("#products .product")];
+  const cart = document.getElementById("cartCount");
+  const toast = document.getElementById("toast");
+  const toastText = document.getElementById("toastText");
+  let pi = 0, count = 2;
+  setInterval(() => {
+    prods.forEach(p => p.classList.remove("pick"));
+    const p = prods[pi % prods.length];
+    p.classList.add("pick");
+    count++;
+    cart.textContent = count;
+    cart.classList.remove("bump"); void cart.offsetWidth; cart.classList.add("bump");
+    toastText.textContent = p.querySelector("span").textContent + " · just now";
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2400);
+    pi++;
+  }, 4200);
+
+  /* typing code editor cycling through languages */
+  const code = document.getElementById("code");
+  const fileName = document.getElementById("fileName");
+  const snippets = [...document.querySelectorAll("template[data-file]")].map(t => {
+    const chars = [];
+    t.content.childNodes.forEach(n => {
+      const cls = n.nodeType === 1 ? n.className : "";
+      for (const ch of n.textContent) chars.push([ch, cls]);
+    });
+    return { file: t.dataset.file, chars };
+  });
+  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const render = (chars, n) => {
+    let html = "", cur = null, buf = "";
+    const flush = () => { if (buf) html += cur ? '<span class="' + cur + '">' + esc(buf) + "</span>" : esc(buf); buf = ""; };
+    for (let i = 0; i < n; i++) { const [c, k] = chars[i]; if (k !== cur) { flush(); cur = k; } buf += c; }
+    flush();
+    return html + '<span class="caret"></span>';
+  };
+  (async () => {
+    let si = 0;
+    await sleep(3500);
+    for (;;) {
+      const cur = snippets[si].chars;
+      for (let n = cur.length; n >= 0; n -= 3) { code.innerHTML = render(cur, n); await sleep(12); }
+      si = (si + 1) % snippets.length;
+      const next = snippets[si];
+      fileName.textContent = next.file;
+      for (let n = 0; n <= next.chars.length; n++) {
+        code.innerHTML = render(next.chars, n);
+        await sleep(next.chars[n - 1] && next.chars[n - 1][0] === "\n" ? 140 : 28);
+      }
+      await sleep(3200);
+    }
+  })();
+})();
+</script>
+
+</body>
+</html>
